@@ -1,4 +1,5 @@
 # Student Records REST API (FastAPI)
 
 ## Run
-```bash
+```bash
+python -m venv .venv && source .venv/bin/activate

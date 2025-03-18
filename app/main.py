@@ -11,4 +11,11 @@ class Student(SQLModel, table=True):
 class Course(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     code: str
-    title: str
+    title: str
+
+class Enrollment(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    student_id: int = Field(foreign_key="student.id")
+    course_id: int = Field(foreign_key="course.id")
+
+engine = create_engine("sqlite:///db.sqlite", echo=False)
