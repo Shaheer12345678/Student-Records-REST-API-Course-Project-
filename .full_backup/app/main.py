@@ -18,4 +18,11 @@ class Enrollment(SQLModel, table=True):
     student_id: int = Field(foreign_key="student.id")
     course_id: int = Field(foreign_key="course.id")
 
-engine = create_engine("sqlite:///db.sqlite", echo=False)
+engine = create_engine("sqlite:///db.sqlite", echo=False)
+SQLModel.metadata.create_all(engine)
+
+def get_sess():
+    return Session(engine)
+
+@app.post("/students", response_model=Student)
+def create_student(s: Student):
