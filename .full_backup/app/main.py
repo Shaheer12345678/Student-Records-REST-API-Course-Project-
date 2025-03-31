@@ -25,4 +25,11 @@ def get_sess():
     return Session(engine)
 
 @app.post("/students", response_model=Student)
-def create_student(s: Student):
+def create_student(s: Student):
+    with get_sess() as ses:
+        ses.add(s)
+        ses.commit()
+        ses.refresh(s)
+        return s
+
+@app.get("/students")
