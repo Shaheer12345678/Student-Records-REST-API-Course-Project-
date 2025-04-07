@@ -32,4 +32,11 @@ def create_student(s: Student):
         ses.refresh(s)
         return s
 
-@app.get("/students")
+@app.get("/students")
+def list_students():
+    with get_sess() as ses:
+        return ses.exec(select(Student)).all()
+
+@app.post("/courses", response_model=Course)
+def create_course(c: Course):
+    with get_sess() as ses:
