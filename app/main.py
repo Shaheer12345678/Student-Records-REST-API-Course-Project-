@@ -46,4 +46,11 @@ def create_course(c: Course):
 def list_courses():
     with get_sess() as ses:
         return ses.exec(select(Course)).all()
-
+
+@app.post("/enrollments", response_model=Enrollment)
+def enroll(e: Enrollment):
+    with get_sess() as ses:
+        # basic referential check
+        if not ses.get(Student, e.student_id) or not ses.get(Course, e.course_id):
+            raise HTTPException(status_code=400, detail="Bad ids")
+        ses.add(e); ses.commit(); ses.refresh(e); return e

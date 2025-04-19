@@ -8,4 +8,6 @@ uvicorn app.main:app --reload
 ```
 ## Test
 ```bash
-pytest -q
+pytest -q
+```
+

@@ -8,4 +8,5 @@ async def test_create_and_list_students():
         r = await client.post("/students", json={"name":"Alex","email":"a@u.ca"})
         assert r.status_code == 200
         r = await client.get("/students")
-        assert any(s["name"]=="Alex" for s in r.json())
+        assert any(s["name"]=="Alex" for s in r.json())
+
