@@ -53,4 +53,11 @@ def enroll(e: Enrollment):
         # basic referential check
         if not ses.get(Student, e.student_id) or not ses.get(Course, e.course_id):
             raise HTTPException(status_code=400, detail="Bad ids")
-        ses.add(e); ses.commit(); ses.refresh(e); return e
+        ses.add(e); ses.commit(); ses.refresh(e); return e
+
+@app.get("/enrollments")
+def list_enrollments():
+    with get_sess() as ses:
+        return ses.exec(select(Enrollment)).all()
+
+

@@ -9,4 +9,5 @@ async def test_create_and_list_students():
         assert r.status_code == 200
         r = await client.get("/students")
         assert any(s["name"]=="Alex" for s in r.json())
-
+
+
