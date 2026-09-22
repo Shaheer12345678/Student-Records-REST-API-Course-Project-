@@ -1,0 +1,24 @@
+services:
+  api:
+    build: .
+    image: student-records-api:latest
+    container_name: student-records-api
+    ports:
+      - "${HOST_PORT:-8000}:8000"
+    environment:
+      PORT: 8000
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-2}
+      DATABASE_URL: sqlite:////data/students.db
+    volumes:
+      # The database lives in a named volume so records survive a rebuild.
+      - student-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health').read()"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  student-data:
