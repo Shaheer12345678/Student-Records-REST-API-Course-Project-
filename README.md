@@ -3,11 +3,13 @@
 [![CI](https://github.com/Shaheer12345678/Student-Records-REST-API-Course-Project-/actions/workflows/ci.yml/badge.svg)](https://github.com/Shaheer12345678/Student-Records-REST-API-Course-Project-/actions/workflows/ci.yml)
 
 A REST API for managing student records: students, courses, and the enrollments
-that link them. It covers full CRUD on every resource, validates all input, and
-returns one consistent JSON error shape for every failure.
+that link them. Built with FastAPI and SQLModel, it covers full CRUD on every
+resource, validates input strictly, and returns one consistent JSON error shape
+for every failure.
 
-The project ships with 159 tests, a container image that runs under Gunicorn,
-and a CI pipeline that runs the suite and builds the image on every push.
+The project ships with 159 pytest tests, a container image that runs under
+Gunicorn, and a CI pipeline that runs the suite and builds the image on every
+push.
 
 ## Tech stack
 
