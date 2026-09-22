@@ -46,8 +46,14 @@ def error_response(status_code: int, code: str, message: str, details: list | No
 
 
 def _field_path(location: tuple) -> str:
-    """Turn a validation error location into a dotted field name the caller recognises."""
+    """Turn a validation error location into a dotted field name the caller recognises.
+
+    A malformed body reports a character offset rather than a field name, which
+    means nothing to the caller, so those are reported against "body".
+    """
     parts = [str(part) for part in location if part not in {"body", "query", "path"}]
+    if len(parts) == 1 and parts[0].isdigit():
+        return "body"
     return ".".join(parts) or "body"
 
 
